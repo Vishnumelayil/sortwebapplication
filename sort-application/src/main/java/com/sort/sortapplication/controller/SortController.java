@@ -30,10 +30,15 @@ public class SortController {
 		model.addAttribute("sortData",new SortBean());
 		return "index";
 	}
-	
 	@PostMapping("/sortData")
 	public String sortData(@ModelAttribute("sortData") SortBean sortBean,ModelMap modelMap) {
+		
+		if(!sortBean.getListOfnumbers().isEmpty()&&sortBean.getListOfnumbers().length()<50) {
 		modelMap.put("sortedDetails", sortservice.perFormSortAndSave(sortBean.getListOfnumbers()));
+		}
+		else {
+			modelMap.put("errodetails", "Error in the input format");
+		}
 		return "index";
 	}
 	
@@ -42,16 +47,6 @@ public class SortController {
 		model.put("sorthistory",sortservice.fethcAllTheHistoryData());
 		return "history";
 	}
-
-	public SortService getSortservice() {
-		return sortservice;
-	}
-
-	public void setSortservice(SortService sortservice) {
-		this.sortservice = sortservice;
-	}
-	
-	
 	
 	
 }

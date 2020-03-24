@@ -42,34 +42,33 @@ public class SortServiceImpl implements SortService {
 		
 		int[] tempArray= array_for_sort.clone(); 
 
-		Instant start = Instant.now();		
-		logger.info("Sort started... ", Instant.now());
-		
+		Instant start = Instant.now();	
+		System.out.println(start+" start" +System.currentTimeMillis());
 		perFormSort(array_for_sort,0,array_for_sort.length-1);
 		
-		Instant finish = Instant.now();
-		logger.info("Sort ended... ", Instant.now());	 
-		timeTakenToSort=String.valueOf(Duration.between(start, finish).toMillis());
+		Instant finish = Instant.now();	 
+		System.out.println(finish+" finish" +System.currentTimeMillis());
+		timeTakenToSort=String.valueOf(Duration.between(start, finish).toNanos());
+		int steps=noOfPosChangeForSort(tempArray,array_for_sort);
 		
-		return sortdao.saveSortedData(Arrays.toString(tempArray), Arrays.toString(array_for_sort), timeTakenToSort, noOfPosChangeForSort(tempArray,array_for_sort));
+		return sortdao.saveSortedData(Arrays.toString(tempArray), Arrays.toString(array_for_sort), timeTakenToSort,steps);
 	} 
 
 	
 	 
 	//  method to fetch the data
-	 
 	@Override
 	public List<SortBean> fethcAllTheHistoryData() {
 		return sortdao.fetchDataFromDb();
 	}
 	 
 	 // method to check the change in position after the sort perfomed
-	 
 	private int noOfPosChangeForSort(int[] tempArray, int[] array_for_sort) {
 		int posChange=array_for_sort.length;
-		for(int i=0;i<posChange;i++) {
-			if(tempArray[i]!=array_for_sort[i])
+		for(int i=0;i<array_for_sort.length;i++) {
+			if(tempArray[i]==array_for_sort[i])	{
 				posChange--;
+			}
 		}
 		return posChange;
 	}

@@ -27,12 +27,6 @@ public class SortBean {
 	@GeneratedValue
 	private long id;
 	
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
-	}
 	@Column(name="BEFORE_SORT")
 	private String listOfnumbers;
 	
@@ -81,6 +75,12 @@ public class SortBean {
 		this.listOfnumbers = listOfnumbers;
 	}
 	
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
 	
 	
 	
