@@ -51,6 +51,7 @@ public class SortServiceImpl implements SortService {
 		timeTakenToSort=String.valueOf(Duration.between(start, finish).toNanos());
 		int steps=noOfPosChangeForSort(tempArray,array_for_sort);
 		
+		logger.info("Calling persistance service");
 		return sortdao.saveSortedData(Arrays.toString(tempArray), Arrays.toString(array_for_sort), timeTakenToSort,steps);
 	} 
 

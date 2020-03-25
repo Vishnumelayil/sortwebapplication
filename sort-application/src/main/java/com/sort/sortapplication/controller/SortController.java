@@ -33,7 +33,7 @@ public class SortController {
 	@PostMapping("/sortData")
 	public String sortData(@ModelAttribute("sortData") SortBean sortBean,ModelMap modelMap) {
 		
-		if(!sortBean.getListOfnumbers().isEmpty()&&sortBean.getListOfnumbers().length()<50) {
+		if(!sortBean.getListOfnumbers().isEmpty()) {
 		modelMap.put("sortedDetails", sortservice.perFormSortAndSave(sortBean.getListOfnumbers()));
 		}
 		else {

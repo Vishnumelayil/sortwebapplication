@@ -10,17 +10,18 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sort.sortapplication.dao.SortDao;
 import com.sort.sortapplication.model.SortBean;
 
 @Repository
+@Transactional
 public class SortDaoImpl implements SortDao{
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -32,7 +33,6 @@ public class SortDaoImpl implements SortDao{
 	/* 
 	  method to persist the data after sort,to Sort bean.
 	 */
-	@Transactional
 	@Override
 	public SortBean saveSortedData(String beforeSort, String afterSort, String timtTakenToSort,
 			int noSteps) {
@@ -43,6 +43,7 @@ public class SortDaoImpl implements SortDao{
 		bean.setNoSteps(noSteps);
 		bean.setTimeTakenToSort(timtTakenToSort);
 		em.persist(bean);
+		logger.info("persistance completed without any error");
 		return bean;
 	}
 	
@@ -58,5 +59,11 @@ public class SortDaoImpl implements SortDao{
 		logger.info("Select  s  From SortBean s -> {}", resultList);		
 		return resultList;
 	}
+	
+	public SortBean findOne(long id) {
+		return em.find(SortBean.class, id);
+	}
+	
+	
 
 }
