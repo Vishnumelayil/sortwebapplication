@@ -1,5 +1,5 @@
 /**
- * Controller take care of Sort elements and history
+ * Controller take care of View
  * 
  */
 package com.sort.sortapplication.controller;
@@ -21,32 +21,10 @@ import com.sort.sortapplication.service.SortService;
 
 @Controller
 public class SortController {
-	
-	@Autowired
-	private SortService sortservice;
-	
+
 	@GetMapping("/")
-	public String sortApplicationPage(ModelMap model) {
-		model.addAttribute("sortData",new SortBean());
-		return "index";
+	public String sortApplicationPage() {
+		return "welcome";
 	}
-	@PostMapping("/sortData")
-	public String sortData(@ModelAttribute("sortData") SortBean sortBean,ModelMap modelMap) {
-		
-		if(!sortBean.getListOfnumbers().isEmpty()) {
-		modelMap.put("sortedDetails", sortservice.perFormSortAndSave(sortBean.getListOfnumbers()));
-		}
-		else {
-			modelMap.put("errodetails", "Error in the input format");
-		}
-		return "index";
-	}
-	
-	@GetMapping("/historyData")
-	public String sortData(ModelMap model) {
-		model.put("sorthistory",sortservice.fethcAllTheHistoryData());
-		return "history";
-	}
-	
-	
+
 }

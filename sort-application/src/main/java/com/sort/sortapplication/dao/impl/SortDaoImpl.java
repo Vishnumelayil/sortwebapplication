@@ -22,48 +22,37 @@ import com.sort.sortapplication.model.SortBean;
 
 @Repository
 @Transactional
-public class SortDaoImpl implements SortDao{
-	
+public class SortDaoImpl implements SortDao {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	EntityManager em;
 
-	
-	/* 
-	  method to persist the data after sort,to Sort bean.
+	/*
+	 * method to persist the data after sort,to Sort bean.
 	 */
 	@Override
-	public SortBean saveSortedData(String beforeSort, String afterSort, String timtTakenToSort,
-			int noSteps) {
-		
-		SortBean bean=new SortBean();
-		bean.setListOfnumbers(beforeSort);
-		bean.setAfterSort(afterSort);
-		bean.setNoSteps(noSteps);
-		bean.setTimeTakenToSort(timtTakenToSort);
-		em.persist(bean);
-		logger.info("persistance completed without any error");
-		return bean;
-	}
-	
+	public SortBean saveSortedData(SortBean sortBean) {
 
-	/* 
-	  method to fetch all the data present in the sort table
+		em.persist(sortBean);
+		logger.info("persistance completed without any error");
+		return sortBean;
+	}
+
+	/*
+	 * method to fetch all the data present in the sort table
 	 */
 	@Override
 	public List<SortBean> fetchDataFromDb() {
-		TypedQuery<SortBean> query = 
-				em.createQuery("Select  c  From SortBean c", SortBean.class);
+		TypedQuery<SortBean> query = em.createQuery("Select  c  From SortBean c", SortBean.class);
 		List<SortBean> resultList = query.getResultList();
-		logger.info("Select  s  From SortBean s -> {}", resultList);		
+		logger.info("Select  s  From SortBean s -> {}", resultList);
 		return resultList;
 	}
-	
+
 	public SortBean findOne(long id) {
 		return em.find(SortBean.class, id);
 	}
-	
-	
 
 }

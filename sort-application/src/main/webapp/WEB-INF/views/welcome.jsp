@@ -1,64 +1,52 @@
-<%@ include file="common/header.jspf"%>
-<%@ include file="common/navigation.jspf"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<div class="container">
+<html>
+<head>
+<title>Sort Application</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
 
-    <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Sort data</h4>
-      <form:form class="needs-validation" method="post" modelAttribute="sortData" action="/sortData">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <form:label path="listOfnumbers">Enter the no's to sort : </form:label>
-            <form:textarea path="listOfnumbers" class="md-textarea form-control" rows="3"></form:textarea>
-            <div class="invalid-feedback">
-              Valid first name is required.
-            </div>
-          </div>
-         </div>
-        <button type="submit" class="btn btn-success">Sort</button>
-      </form:form>
-    </div>
- <div class="row">
-    <div class="col-md-8 order-md-4 mb-6">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Result data</span>
-      </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-2">Created Date : ${sortedDetails.createdDate}</h6>
-            <ul class="list-group mb-6">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-             <span class="text-muted">
-             <small class="text-muted">Before Sort : </small>
-             <small class="text-muted">${sortedDetails.listOfnumbers}</small>
-             </span>
-             </li>
-             <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <span class="text-muted">
-             <small class="text-muted">After Sort : </small>
-             <small class="text-muted">${sortedDetails.afterSort}</small>
-             </span>
-             </li>
-             <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <span class="text-muted">
-             <small class="text-muted">Time took for sort : </small>
-             <small class="text-muted">${sortedDetails.timeTakenToSort} Nano Seconds</small>
-             </span>
-             </li>
-             <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <span class="text-muted">
-             <small class="text-muted">No of positions changed : </small>
-             <small class="text-muted">${sortedDetails.noSteps}</small>
-             </span>
-             </li>
-             </ul>
-          </div>         
-        </li>        
-      </ul>
-    </div>
-  </div>   
-    
-    </div>
+	<nav role="navigation" class="navbar navbar-default">
+		<div class="">
+			<p class="navbar-brand">Sort Application</p>
+		</div>
+	</nav>
 
-<%@ include file="common/footer.jspf"%>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="sortData">Enter the no's to
+						sort</label>
+					<textarea class="form-control" id="sortData"
+						rows="3"></textarea>
+						<ul>
+					<li><span class="label label-warning " id="valComma">Please enter comma seperated interger values</span></li>
+					<li><span class="label label-warning" id="valLimit">User can enter max of 50 no's between 0 to 100 </span></li>	
+					</ul>		
+				</div>
+				
+				<button type="button" class="btn btn-outline-primary" id="sortButton">Sort</button>
+				<button type="button" class="btn btn-outline-primary" id="clearButton">Clear</button>
+			</div>
+			<div class="col-md-6" id="result">				
+			</div>
+		</div>
+		<div class="row">
+		<button type="button" class="btn btn-primary" id="historyButton">History</button>
+		<div class="col-md-6" id="history">
+		
+		</div>
+		</div>
+		
+		<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	</div>
+
+</body>
+</html>
